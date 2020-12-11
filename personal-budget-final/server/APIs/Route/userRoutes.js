@@ -1,8 +1,8 @@
 const express = require('express')
-const user = require('../controllers/UserController')
+const user = require('../Controller/userController')
 const router = express.Router()
 
-const { authMiddleware } = require('../controllers/UserController')
+const { authMiddleware } = require('../Controller/userController')
 
 router.post('/signup', user.signup)
 
