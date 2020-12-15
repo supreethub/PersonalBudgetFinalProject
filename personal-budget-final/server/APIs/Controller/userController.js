@@ -31,7 +31,7 @@ exports.signup = function (req, res) {
         if (err) {
           return res.status(422).json({
             error:
-              "Error! Minimum of 4 and Maximum of 32 Characters Required in all Fields!",
+              "Error! Save Minimum of 4 and Maximum of 32 Characters Required in all Fields!"
           });
         }
         return res.status(200).json({ registered: true });
