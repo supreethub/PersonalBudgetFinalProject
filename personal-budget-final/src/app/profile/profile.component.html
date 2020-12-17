@@ -1,0 +1,11 @@
+<div *ngIf="notify" class="alert alert-danger container marge">
+  {{ notify }}
+</div>
+
+<h1>Welcome Back, {{ auth.getUsername() }}!</h1>
+<h2>Here Are Your Budgets:</h2>
+<ul *ngFor="let element of dataSource.datasets[0].Budget | keyvalue: originalOrder; let i = index" [attr.data-index]="i">
+<ul *ngFor="let element of dataSource.datasets[0] | keyvalue: originalOrder; let j = index" [attr.data-index]="j">
+  <li>{{element.key}}: {{element.value[i]}}</li>
+</ul>
+</ul>

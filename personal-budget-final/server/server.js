@@ -5,7 +5,7 @@ const cors = require('cors');
 
 const config = 'mongodb://localhost:27017/personalBudgetDB'
 const userRoute = require('./APIs/Route/userRoutes');
-//const budgetRoute = require('./routes/BudgetRoute')
+
 const PORT = process.env.PORT || 8081;
 
 mongoose.set('useNewUrlParser', true);

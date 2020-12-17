@@ -127,5 +127,8 @@
       }
     }
   },
-  "defaultProject": "personal-budget-final"
+  "defaultProject": "personal-budget-final",
+  "cli": {
+    "analytics": "4a8c3c35-b299-45c4-9be0-19080d72c691"
+  }
 }

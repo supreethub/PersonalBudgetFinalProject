@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+
 const User = require('../Schema/schema');
 const jwt = require('jsonwebtoken');
 
@@ -27,14 +27,17 @@ exports.signup = function (req, res) {
         email,
         password,
       });
-      user.save(function (err) {
+      user.save(function (err, data) {
         if (err) {
           return res.status(422).json({
             error:
-              "Error! Save Minimum of 4 and Maximum of 32 Characters Required in all Fields!"
+              "Minimum of 4 and Maximum of 32 Characters Required in all Fields!"
           });
         }
-        return res.status(200).json({ registered: true });
+        if (data) {
+          return res.status(200).json({ registered: true });
+
+        }
       });
     }
   });

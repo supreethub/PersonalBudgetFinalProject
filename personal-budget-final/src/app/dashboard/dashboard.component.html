@@ -1,0 +1,65 @@
+<div *ngIf="notify" class="alert alert-success container marge">
+  {{ notify }}
+</div>
+<div *ngIf="notify2" class="alert alert-danger container marge">
+  {{ notify2 }}
+</div>
+
+<p class="container">dashboard!</p>
+<h1>Chart</h1>
+  <div class="myChart"><canvas id ="myDoughnutChart" width="400" height="400"></canvas></div>
+  <div class="myChart"><canvas id ="myBarChart" width="400" height="400"></canvas></div>
+  <div class="myChart"><canvas id ="myPolarAreaChart" width="400" height="400"></canvas></div>
+
+<form class="myChart" #updateForm="ngForm">
+        <div class="form-group">
+          <h1 class="page-title">Add Amount Spent</h1>
+          <label for="title">Title</label>
+          <input
+            placeholder="Examples: 'Rent' 'Food' 'Car' etc."
+            required
+            ngModel
+            name="title"
+            #title="ngModel"
+            id="title"
+            type="text"
+            [(ngModel)]="formData.title"
+            class="form-control"
+          />
+          <div class="alert alert-danger" *ngIf="title.touched && !title.valid">
+            <div *ngIf="title?.errors?.required">Title is Required</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="amtSpent">Amount Spent</label>
+          <input
+            required
+            pattern="^[0-9]*$"
+            ngModel
+            name="amtSpent"
+            #amtSpent="ngModel"
+            id="amtSpent"
+            type="number"
+            [(ngModel)]="formData.amtSpent"
+            class="form-control"
+          />
+          <div
+            class="alert alert-danger"
+            *ngIf="amtSpent.touched && !amtSpent.valid"
+          >
+            <div *ngIf="amtSpent?.errors?.pattern">Amount Spent Must be Numeric</div>
+            <div *ngIf="amtSpent?.errors?.required">Amount Spent is Required</div>
+          </div>
+        </div>
+        <button
+          id="button"
+          (click)="addAmtSpent()"
+          class="btn btn-primary"
+          [disabled]="!updateForm.form.valid"
+        >
+          Submit
+        </button>
+      </form>
+
+
+

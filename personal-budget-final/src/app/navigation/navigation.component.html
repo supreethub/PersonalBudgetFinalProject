@@ -1,0 +1,19 @@
+<nav>
+  <ul>
+    <li><a [routerLink]="['/']">Home</a></li>
+    <ng-container *ngIf="!auth.isAuthenticated()">
+    <li><a [routerLink]="['/login']" class="nav-link" routerLinkActive="active">Login</a></li>
+    <li><a [routerLink]="['/signup']" >Sign-Up</a></li>
+    </ng-container>
+    <li><a [routerLink]="['/dashboard']">Dashboard</a></li>
+    <li><a [routerLink]="['/budget']">Budget</a></li>
+    <ng-container *ngIf="auth.isAuthenticated()">
+      <li class="nav-item" >
+        <a class="nav-link" [routerLink]="['/profile']">
+           {{ auth.getUsername() }}
+         </a>
+     </li>
+    <li><a class="nav-link pointer" (click)="logout()">Logout</a></li>
+  </ng-container>
+  </ul>
+</nav>
