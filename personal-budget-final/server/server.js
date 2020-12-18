@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
-const config = 'mongodb+srv://dbAdmin:pbDBAdmin123@cluster0.kcn3z.mongodb.net/personalbudget-users?retryWrites=true&w=majority'
-const userRoute = require('./APIs/Route/userRoutes');
+const config = require('./DB')
+const userRoute = require('./Route/userRoutes');
 
 const PORT = process.env.PORT || 8081;
 
@@ -15,13 +15,13 @@ mongoose.set('useCreateIndex', true);
 
 mongoose.Promise = global.Promise;
 
-mongoose.connect(config).then(
+mongoose.connect(config.DB).then(
   () => { console.log('Database is connected') },
   err => { console.log('Cannot connect to the database' + err) }
 );
 
 const app = express();
-const path = require('path');
+
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
