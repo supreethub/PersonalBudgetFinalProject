@@ -57,7 +57,7 @@ userSch.pre('save', function(next) {
   bcrypt.genSalt(10, function(err, salt){
     if(err) {
       return res.status(422).json({
-        error:'Error during gensalt hashing'
+        error:'Error during gensalt hash'
       })
     }
     bcrypt.hash(user.password, salt, function(err, hash) {

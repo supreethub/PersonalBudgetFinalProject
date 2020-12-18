@@ -29,7 +29,7 @@ body {
 }
 
 #button {
-  background-color: #64da99fd
+  background-color: #94afbbfd
 }
 /**
  * Render the `main` element consistently in IE.
@@ -400,8 +400,8 @@ nav ul li a:hover  {
 
 div.hero {
   height: 350px;
-  background-color: #aaf7cdfd;
-  background-image: url('/assets/green-geo.png');
+  background-color: #94afbbfd;
+  background-image: url('./assets/BG.png');
   background-size: 200px;
   background-repeat: no-repeat;
 
@@ -416,13 +416,13 @@ div.hero h2 {
 }
 
 div.hero h1 {
-  color: rgb(117, 117, 117);
+  color: rgb(219, 219, 211);
   font-size: 4.2em;
   margin-bottom: 10px;
 }
 
 div.hero h2 {
-  color: #913c6e;
+  color: #2e5685;
 }
 
 .container {

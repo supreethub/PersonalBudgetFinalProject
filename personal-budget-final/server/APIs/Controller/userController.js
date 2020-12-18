@@ -168,7 +168,6 @@ exports.getBudget = function (req, res) {
     if (err) {
       console.log(err);
     } else {
-     // console.log(user.budgets)
       data = user.budgets;
       res.json({ data });
     }

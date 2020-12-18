@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
-const config = 'mongodb://localhost:27017/personalBudgetDB'
+const config = 'mongodb+srv://dbAdmin:pbDBAdmin123@cluster0.kcn3z.mongodb.net/personalbudget-users?retryWrites=true&w=majority'
 const userRoute = require('./APIs/Route/userRoutes');
 
 const PORT = process.env.PORT || 8081;
