@@ -1,16 +1,19 @@
+const User = require("../Schema/schema");
+const env = require("../DB");
+const jwt = require("jsonwebtoken");
 
-const User = require('../Schema/schema');
-const jwt = require('jsonwebtoken');
-const env = require('../DB')
-
-//Signup functionality
+var UID = null;
+var budgID = null;
+//var amtSpent = null;
+// User signup
 exports.signup = function (req, res) {
-  const { username, email, password, confirmPassword } = req.body;
+  console.log('node hit')
+  const { username, email, password, passwordConfirmation } = req.body;
   if (!email || !password) {
     return res.status(422).json({ error: "Please provide email or password" });
   }
 
-  if (password != confirmPassword) {
+  if (password != passwordConfirmation) {
     return res.status(422).json({ error: "Password does not match" });
   }
   User.findOne({ email }, function (err, existingUser) {
@@ -28,23 +31,20 @@ exports.signup = function (req, res) {
         email,
         password,
       });
-      user.save(function (err, data) {
+      user.save(function (err) {
         if (err) {
           return res.status(422).json({
             error:
-              "Minimum of 4 and Maximum of 32 Characters Required in all Fields!"
+              "Error! Minimum of 4 and Maximum of 32 Characters Required in all Fields!",
           });
         }
-        if (data) {
-          return res.status(200).json({ registered: true });
-
-        }
+        return res.status(200).json({ registered: true });
       });
     }
   });
 };
 
-// Login Functionality
+// User login
 exports.login = function (req, res) {
   const { email, password } = req.body;
 
@@ -69,7 +69,7 @@ exports.login = function (req, res) {
           username: user.username,
         },
         env.secret,
-        { expiresIn: "1h" }
+        { expiresIn: "3m" }
       );
 
       return res.json(json_token);
@@ -169,9 +169,9 @@ exports.getBudget = function (req, res) {
     if (err) {
       console.log(err);
     } else {
+
       data = user.budgets;
       res.json({ data });
     }
   });
 };
-

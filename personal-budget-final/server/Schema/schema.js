@@ -1,69 +1,77 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
 
-const schema = mongoose.Schema
+const mongoose = require('mongoose')
+const bcrypt = require('bcryptjs')
+const Schema = mongoose.Schema
 
-const budgetSCh = new schema ({
+
+
+const budgetSchema = new Schema({
   title: {
     type: String,
-    required: true
+    required: true,
   },
-  budgetValue: {
+  budgetVal: {
     type: Number,
-    required: true
-  },
-  budgetAmount: {
-    type: Number
+    required: true,
   },
   color: {
     type: String,
     required: true
+  },
+  amtSpent: {
+    type: Number
+
   }
 })
 
-const userSch = new schema({
+
+
+const userSchema = new Schema({
   username: {
     type: String,
-    min: [2, 'Username must be between 2 and 30 characters long'],
-    max: [30, 'Username must be between 2 and 30 characters long']
-  },
-  password: {
-    type: String,
-    required: true,
-    min: [8, 'Passwords needs to be between 8 to 32 characters long'],
-    max: [32, 'Passwords needs to be between 8 to 32 characters long']
-  },
-  confirmPassword: {
-    type: String,
-    required: true,
-    min: [8, 'Passwords needs to be between 8 to 32 characters long'],
-    max: [32, 'Passwords needs to be between 8 to 32 characters long']
+    min: [4, 'Too short, min 4 characters are required'],
+    max: [32, 'Too long, max 16 characters are required']
   },
   email: {
     type: String,
-    min: [4, 'Email address needs to be between 4 and 64'],
-    max: [64, 'Email address needs to be between 4 and 64'],
+    min: [4, 'Too short, min 4 characters are required'],
+    max: [32, 'Too long, max 16 characters are required'],
     lowercase: true,
     unique: true,
-    required: true,
+    required: 'Email is required',
     match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/]
   },
-  budgets: [budgetSCh]
+  password: {
+    type: String,
+    min: [4, 'Too short, min 4 characters are required'],
+    max: [32, 'Too long, max 16 characters are required'],
+    required: 'password is required'
+  },
+  passwordConfirmation: {
+    type: String,
+    min: [4, 'Too short, min 4 characters are required'],
+    max: [32, 'Too long, max 16 characters are required']
+  },
+  budgets: [budgetSchema]
+
 });
 
-userSch.pre('save', function(next) {
+
+
+userSchema.pre('save', function (next) {
   const user = this
-  if(!user.isModified('password')) return next();
-  bcrypt.genSalt(10, function(err, salt){
-    if(err) {
+  // if user already exits - don't re-hash password
+  if (!user.isModified('password')) return next();
+  bcrypt.genSalt(10, function (err, salt) {
+    if (err) {
       return res.status(422).json({
-        error:'Error during gensalt hash'
+        'error': 'There is an error while gensalt hash'
       })
     }
-    bcrypt.hash(user.password, salt, function(err, hash) {
-      if(err) {
+    bcrypt.hash(user.password, salt, function (err, hash) {
+      if (err) {
         return res.status(422).json({
-          error:'Error while password hash'
+          'error': 'There is an error while password hash'
         })
       }
       user.password = hash
@@ -72,7 +80,9 @@ userSch.pre('save', function(next) {
   })
 })
 
-userSch.methods.hasSamePassword = function (password) {
+userSchema.methods.hasSamePassword = function (password) {
   return bcrypt.compareSync(password, this.password)
 }
-module.exports = mongoose.model('User', userSch)
+
+module.exports = mongoose.model('User', userSchema)
+
